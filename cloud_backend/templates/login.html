@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-5">
+    <div class="text-center mb-4">
+      <h2>Blink-Based AI Attendance System</h2>
+      <p class="text-muted">Sign in to view your attendance</p>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+
+        <ul class="nav nav-pills nav-justified mb-4" id="roleTabs">
+          <li class="nav-item">
+            <button type="button" class="nav-link active" data-role="student" onclick="selectRole('student', this)">
+              🎓 Student
+            </button>
+          </li>
+          <li class="nav-item">
+            <button type="button" class="nav-link" data-role="faculty" onclick="selectRole('faculty', this)">
+              🧑‍🏫 Faculty
+            </button>
+          </li>
+        </ul>
+
+        <form method="POST">
+          <input type="hidden" name="role" id="role" value="student">
+
+          <div class="mb-3">
+            <label class="form-label">Username</label>
+            <input type="text" class="form-control" name="username" required autofocus>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100" id="loginBtn">Login as Student</button>
+        </form>
+
+      </div>
+    </div>
+
+    <p class="text-center text-muted small mt-3">
+      No account yet? Ask an admin to run <code>seed_data.py</code> to create student and faculty logins.
+    </p>
+  </div>
+</div>
+
+<script>
+function selectRole(role, btn) {
+  document.getElementById('role').value = role;
+  document.querySelectorAll('#roleTabs .nav-link').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('loginBtn').textContent = 'Login as ' + (role === 'student' ? 'Student' : 'Faculty');
+}
+</script>
+{% endblock %}

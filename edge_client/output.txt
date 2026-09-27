@@ -1,0 +1,108 @@
+Video opened successfully: True
+Starting session for Period 1. Press 'q' to stop.
+DEBUG CONFIG VALUES -> PROCESS_EVERY_N_FRAMES=3, FRAME_RESIZE_SCALE=1.0
+Loop alive - frame_count=1
+Loop alive - frame_count=2
+Loop alive - frame_count=3
+[frame 3] faces found: 4
+Loop alive - frame_count=4
+Loop alive - frame_count=5
+[frame 6] faces found: 4
+[frame 9] faces found: 4
+[frame 12] faces found: 4
+[frame 15] faces found: 4
+[frame 18] faces found: 4
+Loop alive - frame_count=20
+[frame 21] faces found: 4
+[frame 24] faces found: 4
+[frame 27] faces found: 4
+[frame 30] faces found: 4
+  Cloud unreachable, queueing locally.
+[frame 33] faces found: 4
+[frame 36] faces found: 4
+[frame 39] faces found: 4
+Loop alive - frame_count=40
+[frame 42] faces found: 4
+[frame 45] faces found: 4
+[frame 48] faces found: 4
+[frame 51] faces found: 4
+[frame 54] faces found: 4
+[frame 57] faces found: 4
+Loop alive - frame_count=60
+[frame 60] faces found: 4
+[frame 63] faces found: 4
+[frame 66] faces found: 4
+[frame 69] faces found: 4
+[frame 72] faces found: 5
+[frame 75] faces found: 5
+[frame 78] faces found: 4
+Loop alive - frame_count=80
+[frame 81] faces found: 4
+[frame 84] faces found: 4
+[frame 87] faces found: 4
+[frame 90] faces found: 5
+[frame 93] faces found: 5
+[frame 96] faces found: 5
+[frame 99] faces found: 6
+Loop alive - frame_count=100
+[frame 102] faces found: 5
+[frame 105] faces found: 6
+[frame 108] faces found: 6
+[frame 111] faces found: 6
+[frame 114] faces found: 6
+[frame 117] faces found: 6
+Loop alive - frame_count=120
+[frame 120] faces found: 6
+[frame 123] faces found: 6
+[frame 126] faces found: 6
+[frame 129] faces found: 6
+[frame 132] faces found: 6
+[frame 135] faces found: 6
+[frame 138] faces found: 6
+Loop alive - frame_count=140
+[frame 141] faces found: 6
+[frame 144] faces found: 6
+[frame 147] faces found: 6
+[frame 150] faces found: 6
+[frame 153] faces found: 6
+[frame 156] faces found: 6
+[frame 159] faces found: 6
+Loop alive - frame_count=160
+[frame 162] faces found: 6
+[frame 165] faces found: 6
+[frame 168] faces found: 6
+[frame 171] faces found: 6
+[frame 174] faces found: 6
+[frame 177] faces found: 6
+Loop alive - frame_count=180
+[frame 180] faces found: 6
+[frame 183] faces found: 6
+[frame 186] faces found: 6
+[frame 189] faces found: 6
+[frame 192] faces found: 6
+[frame 195] faces found: 6
+[frame 198] faces found: 6
+Loop alive - frame_count=200
+[frame 201] faces found: 6
+[frame 204] faces found: 6
+[frame 207] faces found: 6
+[frame 210] faces found: 6
+[frame 213] faces found: 6
+[frame 216] faces found: 6
+[frame 219] faces found: 6
+Loop alive - frame_count=220
+[frame 222] faces found: 6
+[frame 225] faces found: 6
+[frame 228] faces found: 6
+[frame 231] faces found: 6
+[frame 234] faces found: 5
+[frame 237] faces found: 5
+Loop alive - frame_count=240
+[frame 240] faces found: 6
+[frame 243] faces found: 5
+[frame 246] faces found: 5
+[frame 249] faces found: 5
+[frame 252] faces found: 5
+[frame 255] faces found: 5
+Video ended. Total frames successfully processed: 256
+Session ended. Marked: ['Test Student']

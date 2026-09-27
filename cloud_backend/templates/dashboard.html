@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f7f7f9; }
+        h1 { color: #222; }
+        table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: #333; color: white; }
+        tr:hover { background: #f1f1f1; }
+    </style>
+</head>
+<body>
+    <h1>Attendance Records</h1>
+    <p>{{ records|length }} record(s) shown (latest 200)</p>
+    <table>
+        <tr>
+            <th>Student</th>
+            <th>Period</th>
+            <th>Classroom</th>
+            <th>Timestamp</th>
+        </tr>
+        {% for r in records %}
+        <tr>
+            <td>{{ r['student_name'] }}</td>
+            <td>{{ r['period'] }}</td>
+            <td>{{ r['classroom_id'] }}</td>
+            <td>{{ r['timestamp'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

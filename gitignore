@@ -1,0 +1,27 @@
+# --- Python ---
+__pycache__/
+*.pyc
+venv/
+env/
+
+# --- Databases (generated locally, not source code) ---
+*.db
+*.sqlite3
+
+# --- Attendance output files (regenerated every run) ---
+edge_client/attendance_*.csv
+edge_client/output.txt
+
+# --- Enrollment data (personal to your students, and large) ---
+edge_client/data/embeddings.pkl
+
+# --- Large downloaded model (see README for the download command) ---
+edge_client/models/shape_predictor_68_face_landmarks.dat
+
+# --- Test videos (large binary files, not code) ---
+edge_client/test_videos/
+
+# --- OS/editor junk ---
+.DS_Store
+Thumbs.db
+.vscode/

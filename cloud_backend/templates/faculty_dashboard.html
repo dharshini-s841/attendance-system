@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block title %}Faculty Dashboard{% endblock %}
+{% block content %}
+
+<div class="mb-4">
+  <h3 class="mb-0">Welcome, {{ faculty_name }}</h3>
+  <small class="text-muted">Class-wise attendance, analytics, and student performance</small>
+</div>
+
+<div class="row g-3 mb-4">
+  {% for c in class_summary %}
+  <div class="col-md-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h6 class="text-muted mb-2">{{ c.subject }} <span class="text-muted small">({{ c.period }})</span></h6>
+        <p class="mb-1">Sessions held: <strong>{{ c.sessions_held }}</strong></p>
+        <p class="mb-0">Attendance marks logged: <strong>{{ c.total_marks }}</strong></p>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="col-12">
+    <p class="text-muted">No subjects assigned to you yet — check <code>seed_data.py</code>.</p>
+  </div>
+  {% endfor %}
+</div>
+
+{% if my_subjects %}
+<form method="get" class="d-flex align-items-center gap-2 mb-3">
+  <label class="form-label mb-0">Viewing:</label>
+  <select name="period" class="form-select w-auto" onchange="this.form.submit()">
+    {% for subj in my_subjects %}
+    <option value="{{ subj.period_name }}" {{ 'selected' if subj.period_name == selected_period else '' }}>
+      {{ subj.subject_name }} — {{ subj.period_name }}
+    </option>
+    {% endfor %}
+  </select>
+</form>
+{% endif %}
+
+<div class="row g-4">
+  <div class="col-lg-7">
+    <div class="card shadow-sm mb-4">
+      <div class="card-header fw-semibold">Student Performance Tracking</div>
+      <div class="card-body p-0">
+        <table class="table mb-0 align-middle">
+          <thead>
+            <tr><th>Roll No</th><th>Name</th><th>Present</th><th>Held</th><th>%</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            {% for s in student_performance %}
+            <tr class="{{ 'table-danger' if s.status == 'At Risk' else '' }}">
+              <td>{{ s.roll_number or '—' }}</td>
+              <td>{{ s.name }}</td>
+              <td>{{ s.present }}</td>
+              <td>{{ s.held }}</td>
+              <td>{{ s.percentage }}%</td>
+              <td><span class="badge {{ 'bg-danger' if s.status == 'At Risk' else 'bg-success' }}">{{ s.status }}</span></td>
+            </tr>
+            {% else %}
+            <tr><td colspan="6" class="text-center text-muted py-4">No students enrolled yet.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-5">
+    <div class="card shadow-sm mb-4">
+      <div class="card-header fw-semibold">Attendance % by Student</div>
+      <div class="card-body">
+        <canvas id="perfChart" height="220"></canvas>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-header fw-semibold">Recent Class Records</div>
+      <div class="card-body p-0" style="max-height: 300px; overflow-y: auto;">
+        <table class="table mb-0 align-middle">
+          <thead>
+            <tr><th>Student</th><th>Classroom</th><th>Time</th></tr>
+          </thead>
+          <tbody>
+            {% for r in class_records %}
+            <tr>
+              <td>{{ r['student_name'] }}</td>
+              <td>{{ r['classroom_id'] }}</td>
+              <td>{{ r['timestamp'] }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="3" class="text-center text-muted py-4">No records for this period yet.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+  const perfLabels = {{ student_performance | map(attribute='name') | list | tojson }};
+  const perfValues = {{ student_performance | map(attribute='percentage') | list | tojson }};
+  const perfColors = perfValues.map(p => p >= {{ threshold }} ? '#198754' : '#dc3545');
+
+  new Chart(document.getElementById('perfChart'), {
+    type: 'bar',
+    data: {
+      labels: perfLabels,
+      datasets: [{
+        label: 'Attendance %',
+        data: perfValues,
+        backgroundColor: perfColors
+      }]
+    },
+    options: {
+      scales: { y: { beginAtZero: true, max: 100 } },
+      plugins: { legend: { display: false } }
+    }
+  });
+</script>
+{% endblock %}

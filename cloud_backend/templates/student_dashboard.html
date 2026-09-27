@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}Student Dashboard{% endblock %}
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+  <div>
+    <h3 class="mb-0">Welcome, {{ student_name }}</h3>
+    <small class="text-muted">Roll No: {{ roll_number or '—' }}</small>
+  </div>
+  <span class="badge fs-6 px-3 py-2 {{ 'bg-success' if eligible else 'bg-danger' }}">
+    {{ 'Eligible' if eligible else 'Not Eligible' }} — {{ overall_pct }}%
+  </span>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-4">
+    <div class="card text-center shadow-sm">
+      <div class="card-body">
+        <h6 class="text-muted mb-2">Overall Attendance</h6>
+        <h2 class="mb-0">{{ overall_pct }}%</h2>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-center shadow-sm">
+      <div class="card-body">
+        <h6 class="text-muted mb-2">Eligibility Threshold</h6>
+        <h2 class="mb-0">{{ threshold }}%</h2>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-center shadow-sm">
+      <div class="card-body">
+        <h6 class="text-muted mb-2">Classes Attended Today</h6>
+        <h2 class="mb-0">{{ daily|length }}</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card shadow-sm mb-4">
+  <div class="card-header fw-semibold">Today's Attendance</div>
+  <div class="card-body p-0">
+    <table class="table mb-0 align-middle">
+      <thead>
+        <tr><th>Period</th><th>Classroom</th><th>Time</th></tr>
+      </thead>
+      <tbody>
+        {% for r in daily %}
+        <tr>
+          <td>{{ r['period'] }}</td>
+          <td>{{ r['classroom_id'] }}</td>
+          <td>{{ r['timestamp'] }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="3" class="text-center text-muted py-4">No attendance marked yet today.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-header fw-semibold">Subject-wise Attendance</div>
+  <div class="card-body p-0">
+    <table class="table mb-0 align-middle">
+      <thead>
+        <tr><th>Subject</th><th>Period</th><th>Present</th><th>Classes Held</th><th style="width: 30%;">Percentage</th></tr>
+      </thead>
+      <tbody>
+        {% for s in subject_stats %}
+        <tr>
+          <td>{{ s.subject }}</td>
+          <td>{{ s.period }}</td>
+          <td>{{ s.present }}</td>
+          <td>{{ s.held }}</td>
+          <td>
+            <div class="progress" style="height: 20px;">
+              <div class="progress-bar {{ 'bg-success' if s.percentage >= threshold else 'bg-danger' }}"
+                   style="width: {{ s.percentage }}%;">
+                {{ s.percentage }}%
+              </div>
+            </div>
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5" class="text-center text-muted py-4">No subjects configured yet — ask faculty to run seed_data.py.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}
